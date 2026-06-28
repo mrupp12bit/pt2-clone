@@ -6,10 +6,10 @@ Has additional audio filters and audio mixer improvements to make it sound close
 *What is ProTracker? Read about it on [Wikipedia](https://en.wikipedia.org/wiki/ProTracker).*
 
 # Enhancements
-This version contains some enhancements done by mrupp12bit aka mike-taws:
+This version contains some enhancements done by *mrupp12bit* aka *mike-taws*. To distinguish it from the regular version done by *8bitbusy*, an *A* has been added to the version number.
 
 ## FIND button
-New option `SHOWFINDBUTTON=TRUE` in `protracker.ini` will display FIND button instead of LOAD button next to the sample name. \
+New option `SHOWFINDBUTTON=TRUE` in `protracker.ini` will display a FIND button instead of the LOAD button next to the sample name. \
 Clicking this button will jump to the next note that uses the current sample. \
 Clicking while holding SHIFT key will search backwards.
 
