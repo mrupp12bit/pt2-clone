@@ -1133,3 +1133,99 @@ int8_t keyToNote(SDL_Scancode scancode)
 
 	return note;
 }
+
+bool findNoteBySample(uint8_t sampleNoToSearch, bool searchBackwards)
+{
+	bool found = false;
+
+	uint8_t maxPattern = MAX_PATTERNS;
+
+	uint16_t startPattern = song->currPattern;
+	int8_t startRow = song->currRow;
+	if (searchBackwards)
+	{
+		int8_t startChannel = cursor.channel - 1;
+		if (startChannel < 0)
+		{
+			startChannel = PAULA_VOICES - 1;
+			startRow--;
+		}
+		if (startRow < 0)
+		{
+			startRow = MOD_ROWS - 1;
+			startPattern--;
+		}
+
+		for (int8_t p = maxPattern; !found && p >= 0; p--)
+		{
+			uint8_t pat = (p + startPattern) % maxPattern;
+			for (int8_t r = (p == maxPattern ? startRow : (MOD_ROWS - 1)); !found && r >= 0; r--)
+			{
+				for (int8_t c = startChannel; !found && c >= 0; c--)
+				{
+					startChannel = PAULA_VOICES - 1;
+					note_t noteSrc = song->patterns[pat][(r * PAULA_VOICES) + c];
+					if (noteSrc.sample == sampleNoToSearch)
+					{
+						modSetPattern(pat);
+						ui.updateSongPattern = true;
+						modSetPos(DONT_SET_ORDER, r);
+						cursor.pos = c * 6;
+						cursor.channel = c;
+						cursor.mode = CURSOR_NOTE;
+						updateCursorPos();
+
+						found = true;
+					}
+				}
+			}
+		}
+	}
+	else // search forwards
+	{
+		uint8_t startChannel = cursor.channel + 1;
+		if (startChannel >= PAULA_VOICES)
+		{
+			startChannel = 0;
+			startRow++;
+		}
+		if (startRow >= MOD_ROWS)
+		{
+			startRow = 0;
+			startPattern++;
+		}
+
+		for (uint8_t p = 0; !found && p <= maxPattern; p++)
+		{
+			uint8_t pat = (p + startPattern) % maxPattern;
+			for (uint8_t r = (p == 0 ? startRow : 0); !found && r < MOD_ROWS; r++)
+			{
+				for (uint8_t c = startChannel; !found && c < PAULA_VOICES; c++)
+				{
+					startChannel = 0;
+					note_t noteSrc = song->patterns[pat][(r * PAULA_VOICES) + c];
+					if (noteSrc.sample == sampleNoToSearch)
+					{
+						modSetPattern(pat);
+						ui.updateSongPattern = true;
+						modSetPos(DONT_SET_ORDER, r);
+						cursor.pos = c * 6;
+						cursor.channel = c;
+						cursor.mode = CURSOR_NOTE;
+						updateCursorPos();
+
+						found = true;
+					}
+				}
+			}
+		}
+	}
+
+	if (!found)
+	{
+		char str[32];
+		sprintf(str, "NO NOTES FOR S.%x", sampleNoToSearch);
+		displayErrorMsg(str);
+	}
+	return found;
+}

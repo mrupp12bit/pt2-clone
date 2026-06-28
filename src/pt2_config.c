@@ -69,6 +69,7 @@ void loadConfig(void)
 	config.keepEditModeAfterStepPlay = false;
 	config.maxSampleLength = 65534;
 	config.restrictedPattEditClick = false;
+	config.showFindButton = true;
 
 #ifndef _WIN32
 	getcwd(oldCwd, PATH_MAX);
@@ -490,6 +491,13 @@ static bool loadProTrackerDotIni(FILE *f)
 				const int32_t num = atoi(&configLine[17]);
 				config.stereoSeparation = (int8_t)(CLAMP(num, 0, 100));
 			}
+		}
+
+		// SHOWFINDBUTTON
+		else if (!_strnicmp(configLine, "SHOWFINDBUTTON=", 15))
+		{
+			if (!_strnicmp(&configLine[15], "TRUE", 4)) config.showFindButton = true;
+			else if (!_strnicmp(&configLine[15], "FALSE", 5)) config.showFindButton = false;
 		}
 
 		configLine = strtok(NULL, "\n");

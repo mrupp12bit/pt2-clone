@@ -10,6 +10,7 @@
 #include "pt2_helpers.h"
 #include "pt2_bmp.h"
 #include "pt2_tables.h"
+#include "pt2_config.h"
 
 uint32_t *aboutScreenBMP   = NULL, *diskOpScreenBMP  = NULL, *editOpModeCharsBMP = NULL;
 uint32_t *editOpScreen1BMP = NULL, *editOpScreen2BMP = NULL, *samplerVolumeBMP   = NULL;
@@ -254,7 +255,7 @@ bool unpackBMPs(void)
 	fix128KChordBMP = unpackBMP(fix128KChordPackedBMP, sizeof (fix128KChordPackedBMP));
 	fix128KPosBMP = unpackBMP(fix128KPosPackedBMP, sizeof (fix128KPosPackedBMP));
 	fix128KTrackerBMP = unpackBMP(tracker128KFixPackedBMP, sizeof (tracker128KFixPackedBMP));
-	trackerFrameBMP = unpackBMP(trackerFramePackedBMP, sizeof (trackerFramePackedBMP));
+	trackerFrameBMP = config.showFindButton ? unpackBMP(trackerFindFramePackedBMP, sizeof (trackerFindFramePackedBMP)) : unpackBMP(trackerFramePackedBMP, sizeof(trackerFramePackedBMP));
 	samplerScreenBMP = unpackBMP(samplerScreenPackedBMP, sizeof (samplerScreenPackedBMP));
 	samplerVolumeBMP = unpackBMP(samplerVolumePackedBMP, sizeof (samplerVolumePackedBMP));
 	samplerFiltersBMP = unpackBMP(samplerFiltersPackedBMP, sizeof (samplerFiltersPackedBMP));

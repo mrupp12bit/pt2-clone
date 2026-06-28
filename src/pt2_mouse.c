@@ -3477,23 +3477,30 @@ static bool handleGUIButtons(int32_t button) // are you prepared to enter the ju
 		}
 		break;
 
-		case PTB_LOADSAMPLE: // "LOAD" button next to sample name
+		case PTB_LOADSAMPLE: // "LOAD" or "FIND" button next to sample name
 		{
-			ui.posEdScreenShown = false;
-			diskop.mode = DISKOP_MODE_SMP;
-			setPathFromDiskOpMode();
-			diskop.scrollOffset = 0;
-			diskop.cached = false;
-
-			if (!ui.diskOpScreenShown)
+			if (config.showFindButton)
 			{
-				ui.diskOpScreenShown = true;
-				renderDiskOpScreen();
+				findNoteBySample(editor.sampleZero ? 0 : editor.currSample + 1, keyb.shiftPressed); // if SHIFT is pressed, it will search backwards
 			}
 			else
 			{
-				ui.updateDiskOpFileList = true;
-				ui.updateLoadMode = true;
+				ui.posEdScreenShown = false;
+				diskop.mode = DISKOP_MODE_SMP;
+				setPathFromDiskOpMode();
+				diskop.scrollOffset = 0;
+				diskop.cached = false;
+
+				if (!ui.diskOpScreenShown)
+				{
+					ui.diskOpScreenShown = true;
+					renderDiskOpScreen();
+				}
+				else
+				{
+					ui.updateDiskOpFileList = true;
+					ui.updateLoadMode = true;
+				}
 			}
 		}
 		break;

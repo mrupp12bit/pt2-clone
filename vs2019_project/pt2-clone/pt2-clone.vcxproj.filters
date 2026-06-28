@@ -242,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\pt2_posed.c" />
     <ClCompile Include="..\..\src\pt2_textedit.c" />
+    <ClCompile Include="..\..\src\gfx\pt2_gfx_tracker_find.c">
+      <Filter>gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\pt2-clone.rc" />

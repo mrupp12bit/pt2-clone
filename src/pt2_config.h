@@ -24,6 +24,7 @@ typedef struct config_t
 	uint16_t quantizeValue;
 	int32_t maxSampleLength;
 	uint32_t soundFrequency, soundBufferSize, audioInputFrequency, mod2WavOutputFreq;
+	bool showFindButton;
 } config_t;
 
 extern config_t config; // pt2_config.c

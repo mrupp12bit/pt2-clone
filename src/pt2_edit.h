@@ -21,3 +21,4 @@ void handleEditKeys(SDL_Scancode scancode, bool normalMode);
 bool handleSpecialKeys(SDL_Scancode scancode);
 int8_t keyToNote(SDL_Scancode scancode);
 void handleSampleJamming(SDL_Scancode scancode);
+bool findNoteBySample(uint8_t sampleNoToSearch, bool searchBackwards);
