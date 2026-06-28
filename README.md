@@ -5,6 +5,13 @@ Aims to be a highly accurate clone of the classic ProTracker 2.3D software for A
 Has additional audio filters and audio mixer improvements to make it sound close to a real Amiga computer. \
 *What is ProTracker? Read about it on [Wikipedia](https://en.wikipedia.org/wiki/ProTracker).*
 
+# Enhancements
+This version contains some enhancements done by mrupp12bit aka mike-taws:
+
+## FIND button
+New option `SHOWFINDBUTTON=TRUE` in `protracker.ini` will display FIND button instead of LOAD button next to the sample name. \
+Clicking this button will jump to the next note that uses the current sample. \
+Clicking while holding SHIFT key will search backwards.
 
 # Releases
 Windows/macOS binary releases can always be found at [16-bits.org/pt2.php](https://16-bits.org/pt2.php).
